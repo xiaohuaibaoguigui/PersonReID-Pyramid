@@ -66,7 +66,7 @@ class BaseDataset(dataset.Dataset):
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
-
+        print("images number is ",len(list_pictures(self.root)))
         self.imgs = [path for path in list_pictures(self.root) if self.id(path) != -1]
         print("images number is ",len(self.imgs))
 
