@@ -70,7 +70,7 @@ def run():
                              std=args.transform_norm_std)
     ])
 
-    train_dataset = Dataset(root + '/bounding_box_train',
+    train_dataset = Dataset(root ,
                             transform=train_transform)
     train_loader_tri = DataLoader(train_dataset,
                                   sampler=RandomIdSampler(
