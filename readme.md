@@ -1,5 +1,6 @@
 # Pyramidal Person Re-IDentification via Multi-Loss Dynamic Training (CVPR 2019)
 zxh test
+zhangxinhui test
 Code for CVPR 2019 paper [Pyramidal Person Re-IDentification via Multi-Loss Dynamic Training](http://openaccess.thecvf.com/content_CVPR_2019/papers/Zheng_Pyramidal_Person_Re-IDentification_via_Multi-Loss_Dynamic_Training_CVPR_2019_paper.pdf). 
 
 ## Introduction
