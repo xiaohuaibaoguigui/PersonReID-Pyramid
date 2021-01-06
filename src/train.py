@@ -38,6 +38,18 @@ else:
     from datasets.iris import IRIS as Dataset
 
 
+class Transpos90(object):
+
+    def __init__(self):
+    def __call__(self, img):
+        """
+        Args:
+            img (PIL Image): PIL Image
+        Returns:
+            PIL Image: PIL image.
+        """
+        return(img.transpose(Image.ROTATE_90) )       
+
 def run():
     batch_id = args.batch_id  # 8
     batch_image = args.batch_image  # 8
@@ -55,7 +67,8 @@ def run():
     train_transform = transforms.Compose([
         transforms.Resize(args.transform_imsize, interpolation=3),
         #transforms.RandomCrop((256, 128)),
-        transforms.RandomHorizontalFlip(),
+        #transforms.RandomHorizontalFlip(),
+        Transpos90(),
         transforms.ToTensor(),
         transforms.Normalize(mean=args.transform_norm_mean,
                              std=args.transform_norm_std),

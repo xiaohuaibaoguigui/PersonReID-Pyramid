@@ -63,7 +63,8 @@ class PCB_plus_dropout_pyramid(nn.Module):
         """
         # shape [N, C, H, W]
         feat0 = self.base(x)
-
+        print("feat0.size(3)",feat0.size(3))
+        print("feat0.size(2)",feat0.size(2))
         assert feat0.size(2) % self.num_stripes == 0
         # assert feat1.size(2) % self.num_stripes == 0
         # ==============================================================================
