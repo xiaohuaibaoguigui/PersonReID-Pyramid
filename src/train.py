@@ -32,8 +32,10 @@ if args.data_loader == 'Duke':
     from datasets.duke import Duke as Dataset
 elif args.data_loader == 'cuhk03':
     from datasets.cuhk03 import CUHK03 as Dataset
-else:
+elif args.data_loader == 'market1501':
     from datasets.market1501 import Market1501 as Dataset
+else:
+    from datasets.iris import IRIS as Dataset
 
 
 def run():
@@ -77,7 +79,7 @@ def run():
     # num_workers=num_workers)
     train_loader_all = DataLoader(
         train_dataset, batch_size=batch_train, shuffle=True, drop_last=True)
-
+'''
     query_dataset = Dataset(root + '/query', transform=test_transform)
     query_loader = DataLoader(
         query_dataset, batch_size=batch_test, shuffle=False)
@@ -86,7 +88,7 @@ def run():
                            transform=test_transform)
     test_loader = DataLoader(
         test_dataset, batch_size=batch_test, shuffle=False)
-
+'''
     model = PCB_plus_dropout_pyramid(num_classes=len(train_dataset.unique_ids))
     model_w = nn.DataParallel(model).to(DEVICE)
     criterion = nn.CrossEntropyLoss()
@@ -106,8 +108,7 @@ def run():
     #print('Resume from EP: {}'.format(resume_ep))
     print(optimizer)
 
-    scheduler = optim.lr_scheduler.MultiStepLR(
-        optimizer, milestones=args.lr_schedule, gamma=0.5)
+    scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
 
     refine_ep = 10
     epochs = args.n_epoch
@@ -163,7 +164,7 @@ def run():
                                                              loss1.item(), loss2.item()))
         print('epoch: %d/%d - loss: %f' %
               (epoch, epochs, running_loss / len(train_loader)))
-
+'''
         if (epoch == 0 or epoch > 95) and ((epoch % 4 == 0) or (epoch == epochs-1)):
             model_w.eval()
             query = np.concatenate([torch.cat(model_w(inputs.to(DEVICE))[0], dim=1).detach().cpu().numpy()
@@ -186,7 +187,7 @@ def run():
             max_mAP = m_ap
             save_ckpt(modules_optims, epoch, 0,
                       'logs/ckpt_ep{}_re02_bs64_dropout02_GPU{}_mAP{}_market.pth'.format(epoch, GPUID, m_ap))
-
+'''
 
 if __name__ == '__main__':
     run()

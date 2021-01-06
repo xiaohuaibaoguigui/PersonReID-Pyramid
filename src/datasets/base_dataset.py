@@ -9,7 +9,7 @@ from torch.utils.data import dataset, sampler
 from torchvision.datasets.folder import default_loader
 
 
-def list_pictures(directory, ext='jpg|jpeg|bmp|png|ppm'):
+def list_pictures(directory, ext='jpg|jpeg|bmp|ppm'):
     return sorted([os.path.join(root, f)
                    for root, _, files in os.walk(directory) for f in files
                    if re.match(r'([\w]+\.(?:' + ext + '))', f)])
