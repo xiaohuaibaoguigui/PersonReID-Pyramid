@@ -68,6 +68,7 @@ class BaseDataset(dataset.Dataset):
         self.loader = loader
 
         self.imgs = [path for path in list_pictures(self.root) if self.id(path) != -1]
+        print("images number is ",len(self.imgs))
 
         # convert person id to softmax continuous label
         self._id2label = {_id: idx for idx, _id in enumerate(self.unique_ids)}
