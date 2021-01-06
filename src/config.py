@@ -8,7 +8,7 @@ def parse_args():
     parser.add_argument('--GPUID', type=str, default='0', help='gpu ids')
 
     parser.add_argument('--root', type=str,
-                        default='data/Market-1501-v15.09.15')
+                        default='/home/zhangxh/data/NistIris/512/train_mask_norm_bymodel512/')
 
     parser.add_argument('--batch_id', type=int, default=8)
     parser.add_argument('--batch_image', type=int, default=8)
@@ -33,7 +33,7 @@ def parse_args():
                         default=[60, 70, 80, 90, 100])
     parser.add_argument('--n_epoch', type=int, default=120)
 
-    parser.add_argument('--data_loader', type=str, default='Market1501')
+    parser.add_argument('--data_loader', type=str, default='IRIS')
 
     args = parser.parse_args()
 
