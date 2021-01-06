@@ -195,12 +195,11 @@ def run():
                            query_dataset.cameras, test_dataset.cameras)
             print('epoch[%d]: mAP=%f, r@1=%f, r@5=%f, r@10=%f' %
                   (epoch + 1, m_ap, r[0], r[4], r[9]))
-
-        if epoch > 50 and max_mAP < m_ap:
-            max_mAP = m_ap
-            save_ckpt(modules_optims, epoch, 0,
-                      'logs/ckpt_ep{}_re02_bs64_dropout02_GPU{}_mAP{}_market.pth'.format(epoch, GPUID, m_ap))
         """
+        #if epoch > 20 ：#and max_mAP < m_ap:
+            #max_mAP = m_ap
+        save_ckpt(modules_optims, epoch, 0, 'logs/ckpt_ep{}_re02_bs64_dropout02_GPU{}_loss{}_market.pth'.format(epoch, GPUID, running_loss / len(train_loader)))
+        
 
 if __name__ == '__main__':
     run()
