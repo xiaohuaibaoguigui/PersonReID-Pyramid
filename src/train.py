@@ -16,6 +16,7 @@ from models.pcb_plus_dropout_pyramid import PCB_plus_dropout_pyramid
 from __init__ import DEVICE, cmc, mean_ap, save_ckpt, load_ckpt
 from custom_transforms import RandomErasing
 
+from PIL import Image
 from config import parse_args
 # root = os.path.dirname(os.path.realpath(__file__)) + '/../../Market-1501-v15.09.15'
 args = parse_args()
@@ -40,7 +41,6 @@ else:
 
 class Transpos90(object):
 
-    def __init__(self):
     def __call__(self, img):
         """
         Args:
