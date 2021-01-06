@@ -23,5 +23,10 @@ class IRIS(BaseDataset):
         :param file_path: unix style file path
         :return: person id
         """
-        return int(file_path.split('/')[-1].split('_')[0])
+        id=file_path.split('/')[-1].split('_')[0]
+        if "L" in id:
+            id=id.replace("L", "1")
+        else:
+            id=id.replace("R", "2")
+        return int(id)
 
