@@ -6,8 +6,8 @@ import torch
 from sklearn.metrics import average_precision_score
 import os
 #os.environ['CUDA_VISIBLE_DEVICES'] = '2'
-#DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-DEVICE = torch.device("cuda")
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#DEVICE = torch.device("cuda")
 print(DEVICE)
 
 
