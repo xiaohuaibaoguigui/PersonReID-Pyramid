@@ -123,7 +123,7 @@ def run():
     print('Resume from EP: {}'.format(resume_ep))
     print(optimizer)
 
-    scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
+    m,scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
     if True :
         model_w.load_state_dict(torch.load("logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth"))
     refine_ep = 0
