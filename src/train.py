@@ -138,10 +138,10 @@ def run():
         model_w.train()
         scheduler.step()
 
-        if epoch > refine_ep and epoch % 2 == 1:
-            train_loader = train_loader_tri
-        else:
-            train_loader = train_loader_all
+        #if epoch > refine_ep and epoch % 2 == 1:
+        train_loader = train_loader_tri
+        #else:
+            #train_loader = train_loader_all
 
         running_loss = 0.0
         for i, data in enumerate(train_loader):
