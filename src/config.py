@@ -18,7 +18,7 @@ def parse_args():
     parser.add_argument('--trple_margin', type=float, default=1.4)
     parser.add_argument('--para_balance', type=float, default=0.0)
 
-    parser.add_argument('--transform_imsize', type=list, default=[192, 1536])
+    parser.add_argument('--transform_imsize', type=list, default=[144, 1152])
     parser.add_argument('--transform_norm_mean', type=list,
                         default=[0.485, 0.456, 0.406])
     parser.add_argument('--transform_norm_std', type=list,

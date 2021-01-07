@@ -88,10 +88,12 @@ def run():
     train_loader_tri = DataLoader(train_dataset,
                                   sampler=RandomIdSampler(
                                       train_dataset, batch_image=batch_image),
-                                  batch_size=batch_id * batch_image)
+                                  batch_size=batch_id * batch_image, drop_last=True)
     # num_workers=num_workers)
     train_loader_all = DataLoader(
         train_dataset, batch_size=batch_train, shuffle=True, drop_last=True)
+    print("batch_id * batch_image",batch_id * batch_image)
+    print("batch_train",batch_train)
     """
     query_dataset = Dataset(root + '/query', transform=test_transform)
     query_loader = DataLoader(
