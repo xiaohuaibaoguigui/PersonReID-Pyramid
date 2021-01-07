@@ -10,8 +10,8 @@ def parse_args():
     parser.add_argument('--root', type=str,
                         default='/home/zhangxh/data/NistIris/512/train_mask_norm_bymodel512/')
 
-    parser.add_argument('--batch_id', type=int, default=8)
-    parser.add_argument('--batch_image', type=int, default=8)
+    parser.add_argument('--batch_id', type=int, default=32)
+    parser.add_argument('--batch_image', type=int, default=2)
     parser.add_argument('--batch_train', type=int, default=64)
     parser.add_argument('--batch_test', type=int, default=64)
 
