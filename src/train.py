@@ -119,12 +119,13 @@ def run():
     optimizer = optim.SGD(param_groups, momentum=0.9, weight_decay=5e-4)
     print("before",optimizer)
     modules_optims = [model, optimizer]
+    model_w = nn.DataParallel(model).to(DEVICE)
+    m,scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
     if True:
         resume_ep, scores = load_ckpt(modules_optims, 'logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
-    model_w = nn.DataParallel(model).to(DEVICE)
-    m,scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
+
     
     refine_ep = 0
     epochs = args.n_epoch
