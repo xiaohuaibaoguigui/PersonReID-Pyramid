@@ -124,8 +124,9 @@ def run():
     print(optimizer)
 
     scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
-
-    refine_ep = 10
+    if True :
+        model_w.load_state_dict(torch.load("/home/zhangxh/work/PersonReID-Pyramid/logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth"))
+    refine_ep = 0
     epochs = args.n_epoch
 
     # ==============================================================
@@ -138,12 +139,10 @@ def run():
 
     for epoch in range(epochs):
         model_w.train()
-        scheduler.step()
-
-        #if epoch > refine_ep and epoch % 2 == 1:
-        train_loader = train_loader_tri
-        #else:
-            #train_loader = train_loader_all
+        if epoch > refine_ep and epoch % 2 == 1:
+            train_loader = train_loader_tri
+        else:
+            train_loader = train_loader_all
 
         running_loss = 0.0
         for i, data in enumerate(train_loader):
@@ -201,7 +200,7 @@ def run():
         #if epoch > 20 ：#and max_mAP < m_ap:
             #max_mAP = m_ap
         save_ckpt(modules_optims, epoch, 0, 'logs/ckpt_ep{}_re02_bs64_dropout02_GPU{}_loss{}_market.pth'.format(epoch, GPUID, running_loss / len(train_loader)))
-        
+        scheduler.step()
 
 if __name__ == '__main__':
     run()
