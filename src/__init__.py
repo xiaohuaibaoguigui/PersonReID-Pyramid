@@ -33,7 +33,7 @@ def load_ckpt(modules_optims, ckpt_file, load_to_cpu=True, verbose=True):
     if verbose:
         print('Resume from ckpt {}, \nepoch {}, \nscores {}'.format(
             ckpt_file, ckpt['ep'], ckpt['scores']))
-    return ckpt['state_dicts'],ckpt['ep'], ckpt['scores']
+    return ckpt['ep'], ckpt['scores']
 
 
 def _unique_sample(ids_dict, num):
