@@ -105,7 +105,8 @@ def run():
         test_dataset, batch_size=batch_test, shuffle=False)
     """
     model = PCB_plus_dropout_pyramid(num_classes=len(train_dataset.unique_ids))
-    model_w = nn.DataParallel(model).to(DEVICE)
+
+  
     criterion = nn.CrossEntropyLoss()
     triplet_loss = TripletLoss(margin=trple_margin)  # original margin: 1.2
 
@@ -118,14 +119,14 @@ def run():
     optimizer = optim.SGD(param_groups, momentum=0.9, weight_decay=5e-4)
 
     modules_optims = [model, optimizer]
+    if True:
+        resume_ep, scores = load_ckpt(modules_optims, 'logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
+        print('Resume from EP: {}'.format(resume_ep))
+        print(optimizer)
 
-    resume_ep, scores = load_ckpt(modules_optims, 'logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
-    print('Resume from EP: {}'.format(resume_ep))
-    print(optimizer)
-
+    model_w = nn.DataParallel(model).to(DEVICE)
     m,scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
-    if True :
-        model_w.load_state_dict(torch.load("logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth"))
+    
     refine_ep = 0
     epochs = args.n_epoch
 
