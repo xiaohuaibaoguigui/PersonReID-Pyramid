@@ -121,8 +121,8 @@ def run():
     modules_optims = [model, optimizer]
     model_w = nn.DataParallel(model).to(DEVICE)
     scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
-    if True:
-        resume_ep, scores = load_ckpt(modules_optims, 'logs/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
+    if False:
+        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
 
@@ -200,8 +200,10 @@ def run():
         """
         #if epoch > 20 ：#and max_mAP < m_ap:
             #max_mAP = m_ap
-        save_ckpt(modules_optims, epoch, 0, 'logs/ckpt_ep{}_re02_bs64_dropout02_GPU{}_loss{}_market.pth'.format(epoch, GPUID, running_loss / len(train_loader)))
+        save_ckpt(modules_optims, epoch, 0, '/algo/zxh/pth/ckpt_ep{}_re02_bs64_dropout02_GPU{}_loss{}_market.pth'.format(epoch, GPUID, running_loss / len(train_loader)))
         scheduler.step()
+def evalmodel(model):
+    model.eval()
 
 if __name__ == '__main__':
     run()
