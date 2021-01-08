@@ -127,7 +127,7 @@ def run():
         print("load",optimizer)
 
     
-    refine_ep = 0
+    refine_ep = 10
     epochs = args.n_epoch
 
     # ==============================================================
