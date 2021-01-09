@@ -121,8 +121,8 @@ def run():
     modules_optims = [model, optimizer]
     model_w = nn.DataParallel(model).to(DEVICE)
     scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
-    if False:
-        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep10_re02_bs64_dropout02_GPU0,1,2,3_loss10.651553560081505_market.pth',load_to_cpu=False)
+    if True:
+        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep37_re02_bs64_dropout02_GPU0,1,2,3_loss14.756671340720168_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
 
