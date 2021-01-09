@@ -125,6 +125,8 @@ def run():
         resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep37_re02_bs64_dropout02_GPU0,1,2,3_loss14.756671340720168_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
+    else:
+        resume_ep=0
 
     
     refine_ep = 10
@@ -138,7 +140,7 @@ def run():
     max_mAP = 0
     m_ap = 0
 
-    for epoch in range(epochs):
+    for epoch in range(resume_ep,epochs):
         model_w.train()
         if epoch > refine_ep and epoch % 2 == 1:
             train_loader = train_loader_tri
