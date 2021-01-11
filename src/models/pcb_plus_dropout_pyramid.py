@@ -27,16 +27,10 @@ class PCB_plus_dropout_pyramid(nn.Module):
             last_conv_stride=last_conv_stride,
             last_conv_dilation=last_conv_dilation)
         """
-        self.base = EfficientNet.from_pretrained("efficientnet-b3")
+        effcientbase = EfficientNet.from_pretrained("efficientnet-b3")
         #print("base before",self.base)
 
-        self.base = nn.Sequential(
-                        self.base._conv_stem,
-                        self.base._bn0,
-                        self.base._blocks,
-                        self.base._conv_head,
-
-        )
+        self.base = nn.Sequential(effcientbase._conv_stem,effcientbase._bn0,effcientbase._blocks,effcientbase._conv_head)
         self.dropout_layer = nn.Dropout(p=0.2)
 
         # ==============================================================================
