@@ -28,7 +28,7 @@ def parse_args():
                         type=list, default=[0.0, 0.0, 0.0])
 
     parser.add_argument('--lr_finetune', type=float, default=0.01)
-    parser.add_argument('--lr_new', type=float, default=0.01)
+    parser.add_argument('--lr_new', type=float, default=0.1)
     parser.add_argument('--lr_schedule', type=list,
                         default=[60, 70, 80, 90, 100])
     parser.add_argument('--n_epoch', type=int, default=400)
