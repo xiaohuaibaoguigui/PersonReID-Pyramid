@@ -27,12 +27,16 @@ class PCB_plus_dropout_pyramid(nn.Module):
             last_conv_stride=last_conv_stride,
             last_conv_dilation=last_conv_dilation)
         """
-        effcient = EfficientNet.from_pretrained("efficientnet-b3")
-
-
+        self.base = EfficientNet.from_pretrained("efficientnet-b3")
+        #backbone_layers = nn.ModuleList(effcient.children())[:-5]
+       # self.base = nn.Sequential(*backbone_layers)
+        #print("first",self.base)
+       # effcient = EfficientNet.from_name("efficientnet-b3", include_top=False)
+        #print("second",effcient)
         #self.base = nn.Sequential(effcientbase._conv_stem,effcientbase._bn0,effcientbase._blocks,effcientbase._conv_head)
-        self.base = nn.Sequential(*list(effcient.children())[:-5])
-        #print("base before",self.base)
+        #self.base = nn.Sequential(*list(effcientbase.children())[:-5])
+        #self.base = nn.ModuleList([effcientbase._conv_stem,effcientbase._bn0,effcientbase._blocks,effcientbase._conv_head])
+                #self.base = nn.Sequential(*list(effcient.children())[:-5])##print("base before",self.base)
         self.dropout_layer = nn.Dropout(p=0.2)
 
         # ==============================================================================
@@ -70,9 +74,9 @@ class PCB_plus_dropout_pyramid(nn.Module):
         logits_list: each member with shape [N, num_classes]
         """
         # shape [N, C, H, W]
-        feat0 = self.base(x)
-        print("feat0.size(3)",feat0.size(3))
-        print("feat0.size(2)",feat0.size(2))
+        feat0 = self.base.extract_features(x)
+        #print("feat0.size(3)",feat0.size(3))
+        #print("feat0.size(2)",feat0.size(2))
         assert feat0.size(2) % self.num_stripes == 0
         # assert feat1.size(2) % self.num_stripes == 0
         # ==============================================================================
