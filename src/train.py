@@ -48,7 +48,7 @@ class Transpos90(object):
         Returns:
             PIL Image: PIL image.
         """
-        return(img.transpose(Image.ROTATE_90) )       
+        return(img.transpose(Image.ROTATE_90) )
 
 def run():
     batch_id = args.batch_id  # 8
@@ -106,7 +106,7 @@ def run():
     """
     model = PCB_plus_dropout_pyramid(num_classes=len(train_dataset.unique_ids))
 
-  
+
     criterion = nn.CrossEntropyLoss()
     triplet_loss = TripletLoss(margin=trple_margin)  # original margin: 1.2
 
@@ -122,13 +122,13 @@ def run():
     model_w = nn.DataParallel(model).to(DEVICE)
     scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
     if True:
-        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep37_re02_bs64_dropout02_GPU0,1,2,3_loss14.756671340720168_market.pth',load_to_cpu=False)
+        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep118_re02_bs64_dropout02_GPU0,1,2,3_loss0.8886654501675852_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
     else:
         resume_ep=0
 
-    
+
     refine_ep = 10
     epochs = args.n_epoch
 

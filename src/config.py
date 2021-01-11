@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument('--batch_test', type=int, default=64)
 
     parser.add_argument('--trple_margin', type=float, default=1.4)
-    parser.add_argument('--para_balance', type=float, default=0.0)
+    parser.add_argument('--para_balance', type=float, default=0.25)
 
     parser.add_argument('--transform_imsize', type=list, default=[144, 1152])
     parser.add_argument('--transform_norm_mean', type=list,
@@ -28,10 +28,10 @@ def parse_args():
                         type=list, default=[0.0, 0.0, 0.0])
 
     parser.add_argument('--lr_finetune', type=float, default=0.01)
-    parser.add_argument('--lr_new', type=float, default=0.1)
+    parser.add_argument('--lr_new', type=float, default=0.01)
     parser.add_argument('--lr_schedule', type=list,
                         default=[60, 70, 80, 90, 100])
-    parser.add_argument('--n_epoch', type=int, default=120)
+    parser.add_argument('--n_epoch', type=int, default=400)
 
     parser.add_argument('--data_loader', type=str, default='IRIS')
 
