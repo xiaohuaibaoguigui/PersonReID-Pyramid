@@ -5,7 +5,6 @@ import torch.nn.functional as F
 import os
 from .resnet import resnet101
 
-from  efficientnet_pytorch import EfficientNet
 
 class PCB_plus_dropout_pyramid(nn.Module):
     def __init__(
@@ -22,10 +21,12 @@ class PCB_plus_dropout_pyramid(nn.Module):
 
         print("num_stripes:{}".format(num_stripes))
         print("num_conv_out_channels:{},".format(num_conv_out_channels))
-
-
-      # self.base = resnet101(pretrained=True, last_conv_stride=last_conv_stride,last_conv_dilation=last_conv_dilation)
-
+        """
+        self.base = resnet101(
+            pretrained=True,
+            last_conv_stride=last_conv_stride,
+            last_conv_dilation=last_conv_dilation)
+        """
         self.base = EfficientNet.from_pretrained("efficientnet-b3")
         #print("base before",self.base)
 
@@ -36,7 +37,6 @@ class PCB_plus_dropout_pyramid(nn.Module):
                         self.base._conv_head,
 
         )
-        #print("base",self.base)
         self.dropout_layer = nn.Dropout(p=0.2)
 
         # ==============================================================================
@@ -53,8 +53,7 @@ class PCB_plus_dropout_pyramid(nn.Module):
                                               input_size0,
                                               self.pyramid_conv_list0,
                                               self.pyramid_fc_list0)
-        #print("pyramid_conv_list0 2048",self.pyramid_conv_list0)
-        #print("pyramid_fc_list0 2048",self.pyramid_fc_list0)
+
         # =========================================
         input_size1 = 1024
         self.pyramid_conv_list1 = nn.ModuleList()
@@ -63,8 +62,6 @@ class PCB_plus_dropout_pyramid(nn.Module):
                                               input_size1,
                                               self.pyramid_conv_list1,
                                               self.pyramid_fc_list1)
-        #print("pyramid_conv_list1 1024",self.pyramid_conv_list1)
-        #print("pyramid_fc_list1 1024",self.pyramid_fc_list1)
         # ==============================================================================pyramid
         # ==============================================================================
 
