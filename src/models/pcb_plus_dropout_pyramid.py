@@ -27,13 +27,12 @@ class PCB_plus_dropout_pyramid(nn.Module):
             last_conv_stride=last_conv_stride,
             last_conv_dilation=last_conv_dilation)
         """
-        self.base = EfficientNet.from_pretrained("efficientnet-b3")
-        
-        print("base before",self.base)
+        effcient = EfficientNet.from_pretrained("efficientnet-b3")
+
 
         #self.base = nn.Sequential(effcientbase._conv_stem,effcientbase._bn0,effcientbase._blocks,effcientbase._conv_head)
-        self.base = nn.Sequential(*list(self.base.children())[:-4])
-        print("base before",self.base)
+        self.base = nn.Sequential(*list(effcient.children())[:-5])
+        #print("base before",self.base)
         self.dropout_layer = nn.Dropout(p=0.2)
 
         # ==============================================================================
@@ -43,7 +42,7 @@ class PCB_plus_dropout_pyramid(nn.Module):
         self.used_levels = used_levels
 
         # =========================================
-        input_size0 = 1000
+        input_size0 = 1536
         self.pyramid_conv_list0 = nn.ModuleList()
         self.pyramid_fc_list0 = nn.ModuleList()
         PCB_plus_dropout_pyramid.basic_branch(self, num_conv_out_channels,
@@ -52,6 +51,7 @@ class PCB_plus_dropout_pyramid(nn.Module):
                                               self.pyramid_fc_list0)
 
         # =========================================
+        """
         input_size1 = 1024
         self.pyramid_conv_list1 = nn.ModuleList()
         self.pyramid_fc_list1 = nn.ModuleList()
@@ -59,6 +59,7 @@ class PCB_plus_dropout_pyramid(nn.Module):
                                               input_size1,
                                               self.pyramid_conv_list1,
                                               self.pyramid_fc_list1)
+        """
         # ==============================================================================pyramid
         # ==============================================================================
 
@@ -70,8 +71,8 @@ class PCB_plus_dropout_pyramid(nn.Module):
         """
         # shape [N, C, H, W]
         feat0 = self.base(x)
-        #print("feat0.size(3)",feat0.size(3))
-        #print("feat0.size(2)",feat0.size(2))
+        print("feat0.size(3)",feat0.size(3))
+        print("feat0.size(2)",feat0.size(2))
         assert feat0.size(2) % self.num_stripes == 0
         # assert feat1.size(2) % self.num_stripes == 0
         # ==============================================================================
