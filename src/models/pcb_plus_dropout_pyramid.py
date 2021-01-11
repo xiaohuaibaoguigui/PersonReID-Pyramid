@@ -4,7 +4,7 @@ import torch.nn.init as init
 import torch.nn.functional as F
 import os
 from .resnet import resnet101
-
+from  efficientnet_pytorch import EfficientNet
 
 class PCB_plus_dropout_pyramid(nn.Module):
     def __init__(
