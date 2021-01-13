@@ -13,7 +13,7 @@ class PCB_plus_dropout_pyramid(nn.Module):
         last_conv_dilation=1,
         num_stripes=6,  # number of sub-parts
         used_levels=(1, 1, 1, 1, 1, 1),
-        num_conv_out_channels=128,
+        num_conv_out_channels=1000,
         num_classes=0
     ):
 
