@@ -105,7 +105,7 @@ def run():
         test_dataset, batch_size=batch_test, shuffle=False)
     """
     model = PCB_plus_dropout_pyramid(num_classes=len(train_dataset.unique_ids))
-
+    print("model",model)
 
     criterion = nn.CrossEntropyLoss()
     triplet_loss = TripletLoss(margin=trple_margin)  # original margin: 1.2
@@ -122,7 +122,7 @@ def run():
     model_w = nn.DataParallel(model).to(DEVICE)
     scheduler = optim.lr_scheduler.MultiStepLR( optimizer, milestones=args.lr_schedule, gamma=0.5)
     if True:
-        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep118_re02_bs64_dropout02_GPU0,1,2,3_loss0.8886654501675852_market.pth',load_to_cpu=False)
+        resume_ep, scores = load_ckpt(modules_optims, '/algo/zxh/pth/ckpt_ep54_re02_bs64_dropout02_GPU0,1_loss10.311637245814005_market.pth',load_to_cpu=False)
         print('Resume from EP: {}'.format(resume_ep))
         print("load",optimizer)
     else:
